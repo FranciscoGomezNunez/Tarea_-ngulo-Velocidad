@@ -20,7 +20,7 @@ void setup()
 
 void draw()
 {
-  background(0,135,206);
+  background(0,135,230);
   for (particula p: particulas)
   {
     p.display();
