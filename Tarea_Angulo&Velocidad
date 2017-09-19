@@ -5,22 +5,18 @@ void setup()
   size (400,400);
  
   particulas = new ArrayList<particula>();
-  for (int i=0; i<20; i++)
+  for (int i=0; i<200; i++)
   {
-    /*float xp=random(400);
-    float yp=random(400);
-    float vp=random(4);
-    float ap=random(TWO_PI);
-    float tp=random(1, 20);
-    color cp= color(random(255),random(255));
-    particula p=new particula(xp,yp,vp,ap,tp,cp);*/
-    particulas.add(new particula());
+    particulas.add(new particula(random(400),random(400),1,0.125*(TWO_PI),random(5),255));
+    particulas.add(new particula(random(400),random(400),1,0.625*(TWO_PI),random(5),255));
+    particulas.add(new particula(random(400),random(400),1,0.375*(TWO_PI),random(5),255));
+    particulas.add(new particula(random(400),random(400),1,0.875*(TWO_PI),random(5),255));
   }
 }
 
 void draw()
 {
-  background(0,135,230);
+  background(0);
   for (particula p: particulas)
   {
     p.display();
@@ -31,13 +27,13 @@ void draw()
 
 void mousePressed()
 {
-  particula foo= new particula(mouseX,mouseY);
+  particula foo= new particula(mouseX,mouseY,5,0.125*(TWO_PI),10,255);
   particulas.add(foo);
 }
 
 class particula
 {
-  float x,y,v,a,t;
+  float x,y,v,v2,a,t,n,o;
   color c;
   particula (float x_, float y_, float v_, float a_, float t_, color c_)
   {
@@ -47,6 +43,7 @@ class particula
     a=a_;
     t=t_;
     c=c_;
+    v2=v_;
     
   }
   
@@ -82,20 +79,26 @@ class particula
   
   void movimiento()
   {
-    x += v/a;
-    y += a/v;
+    
+    n=sin(a)*v;
+    o=cos(a)*v2;
+    x+=o;
+    y+=n;
     
   }
   
   void rebote()
   {
-    if((x<=0)||(x>=400))
-    {
-      a*=-1;
-    }
+    
     if((y<=0)||(y>=400))
     {
       a*=-1;
     }
+    
+    if((x<=0)||(x>=400))
+    {
+      v2*=-1;
+    }
+    
   }
 }
